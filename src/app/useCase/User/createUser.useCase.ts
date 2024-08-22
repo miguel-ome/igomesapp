@@ -20,6 +20,9 @@ export class CreateUserUseCase {
   ): Promise<CreateUserUseCaseResponse> {
     const { email, name, password } = request;
 
+    if (!email || !name || !password)
+      throw new Error('Email, password or name is empyty');
+
     const user = new User({ email: new Email(email), name, password });
 
     await this.createUserRepository.create(user);

@@ -30,12 +30,24 @@ export class User {
     return this.props.name;
   }
 
+  public set name(name: string) {
+    this.props.name = name;
+  }
+
   public get email(): string {
     return this.props.email.value;
   }
 
+  public set email(email: string) {
+    this.props.email = new Email(email);
+  }
+
   public get password(): string {
     return this.props.password;
+  }
+
+  public set password(password: string) {
+    this.props.password = password;
   }
 
   public get createdAt(): Date {
@@ -46,7 +58,7 @@ export class User {
     return this.props.createdAt;
   }
 
-  public update(): void {
+  public update({ name, email, password }): void {
     this.props.updatedAt = new Date();
   }
 }

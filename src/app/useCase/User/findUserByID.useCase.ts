@@ -11,14 +11,14 @@ interface FindUserByIDUseCaseResponse {
 }
 
 export class FindUserByIDUseCase {
-  constructor(private findUserRepository: UserRepository) {}
+  constructor(private findUserByIDRepository: UserRepository) {}
 
   public async execute(
     request: FindUserByIDUseCaseRequest,
   ): Promise<FindUserByIDUseCaseResponse> {
     const { idUser } = request;
 
-    const user = await this.findUserRepository.findUserById(idUser);
+    const user = await this.findUserByIDRepository.findUserById(idUser);
 
     if (!user) throw new NotFoundException('Not found user');
 
