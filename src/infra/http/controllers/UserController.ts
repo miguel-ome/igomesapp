@@ -14,28 +14,28 @@ export class UserController {
   @Post()
   async create(@Body() body: CreateUserDTO) {
     const { login, name, password } = body;
-    const { user } = await this.createUserUseCase.execute({
+    const { status, message } = await this.createUserUseCase.execute({
       login,
       name,
       password,
     });
 
     return {
-      status: 201,
+      status,
       body: {
-        message: 'Usuário criado com sucesso',
+        message,
       },
     };
   }
 
   @Get()
   async listAllUsers() {
-    const { users } = await this.listAllUsersUseCase.execute();
+    const { message, status, users } = await this.listAllUsersUseCase.execute();
 
     return {
-      status: 201,
+      status,
       body: {
-        message: 'Usuários listados com sucesso',
+        message,
         data: users.map((user) => UserViewModel.toHttp(user)),
       },
     };

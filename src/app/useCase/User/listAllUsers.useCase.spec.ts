@@ -2,7 +2,7 @@ import { User } from '@app/entities/user/user';
 import { ListAllUsersUseCase } from './listAllUsers.useCase';
 import { UserInMemoryRepository } from '@test/inMemory/userInMemory.repository';
 
-describe('Create User', () => {
+describe('List all users', () => {
   let listAllUsersUseCase: ListAllUsersUseCase;
   let userInMemoryRepository: UserInMemoryRepository;
 

@@ -1,10 +1,12 @@
 import { User } from '@app/entities/user/user';
 import { UserRepository } from '@app/repository/user/User.repository';
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 
 // interface ListAllUsersUseCaseRequest {}
 
 interface ListAllUsersUseCaseResponse {
+  status: number;
+  message: string;
   users: User[];
 }
 
@@ -20,6 +22,8 @@ export class ListAllUsersUseCase {
     }
 
     return {
+      status: HttpStatus.OK,
+      message: 'Usuários listados com sucesso',
       users: listUsers,
     };
   }

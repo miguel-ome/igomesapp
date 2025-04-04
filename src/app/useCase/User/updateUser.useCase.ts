@@ -1,6 +1,6 @@
 import { User } from '@app/entities/user/user';
 import { UserRepository } from '@app/repository/user/User.repository';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
 interface CreateUserUseCaseRequest {
   name: string;
@@ -9,8 +9,7 @@ interface CreateUserUseCaseRequest {
 }
 
 interface CreateUserUseCaseResponse {
-  status: number;
-  message: string;
+  user: User;
 }
 
 @Injectable()
@@ -27,16 +26,10 @@ export class CreateUserUseCase {
 
     const user = new User({ name, password, login });
 
-    const userExists = await this.createUserRepository.findUserbyLogin(login);
-
-    if (userExists)
-      throw new HttpException('Usuário já existe', HttpStatus.CONFLICT);
-
     await this.createUserRepository.create(user);
 
     return {
-      status: HttpStatus.CREATED,
-      message: 'Usuário criado com sucesso',
+      user,
     };
   }
 }

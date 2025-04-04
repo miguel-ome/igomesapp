@@ -21,4 +21,16 @@ export class PrismaUserRepository implements UserRepository {
 
     return listRowUsers.map(PrismaUserMaper.toDomain);
   }
+
+  async delete(id: string): Promise<void> {
+    this.prisma.user.delete({ where: { id } });
+  }
+
+  async findUserbyLogin(login: string): Promise<User | null> {
+    const rowUser = await this.prisma.user.findUnique({
+      where: { login },
+    });
+
+    return rowUser ? PrismaUserMaper.toDomain(rowUser) : null;
+  }
 }

@@ -11,13 +11,13 @@ describe('Create User', () => {
   });
 
   it('Should be able to create a user in repository', async () => {
-    const { user } = await createUserUseCase.execute({
+    await createUserUseCase.execute({
       name: 'Eliseu Miguel Marinho de Oliveira',
       login: 'miguel',
       password: 'teste123',
     });
 
-    expect(user).toBeTruthy();
+    expect(userInMemoryRepository.findUserbyLogin('miguel')).toBeTruthy();
   });
 
   it('Should not be able to create a user in repository with password, name or login empity', async () => {
