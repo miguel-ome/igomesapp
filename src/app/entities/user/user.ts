@@ -10,6 +10,11 @@ export interface UserSchema {
   updatedAt?: Date | null;
 }
 
+interface UserUpdate {
+  name: string;
+  login: string;
+}
+
 export class User {
   private props: UserSchema;
   private _id: string;
@@ -59,7 +64,9 @@ export class User {
   }
 
   // Methods
-  public update(): void {
+  public update({ login, name }: UserUpdate): void {
+    this.props.name = name;
+    this.props.login = login;
     this.props.updatedAt = new Date();
   }
 }

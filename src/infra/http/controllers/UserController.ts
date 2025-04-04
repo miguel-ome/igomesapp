@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CreateUserDTO } from '../dto/CreateUserDTO';
 import { CreateUserUseCase } from '@app/useCase/User/createUser.useCase';
 import { UserViewModel } from '../../view-model/UserViewModels';
@@ -39,5 +39,10 @@ export class UserController {
         data: users.map((user) => UserViewModel.toHttp(user)),
       },
     };
+  }
+
+  @Get(':id/:login')
+  async findUserByLogin(@Param() params: { id: string; login: string }) {
+    return `Estes são os parametros: ${params.id}: id \n ${params.login}: login`;
   }
 }

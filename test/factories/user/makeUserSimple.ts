@@ -1,5 +1,5 @@
 import { Email } from '@app/entities/email/email';
-import { User } from '@app/entities/user/user';
+import { User } from '@app/entities/User/User';
 
 export function makeUserSimple() {
   return new User({

@@ -1,6 +1,6 @@
 import { UserInMemoryRepository } from '@test/inMemory/userInMemory.repository';
 import { DeleteUserUseCase } from './deleteUser.useCase';
-import { User } from '@app/entities/user/user';
+import { User } from '@app/entities/User/User';
 import { HttpException } from '@nestjs/common';
 
 describe('Delete user', () => {

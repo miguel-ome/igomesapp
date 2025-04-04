@@ -1,35 +1,40 @@
-import { User } from '@app/entities/user/user';
 import { UserRepository } from '@app/repository/user/User.repository';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
-interface CreateUserUseCaseRequest {
+interface UpdateUserUseCaseRequest {
   name: string;
   login: string;
-  password: string;
+  id: string;
 }
 
-interface CreateUserUseCaseResponse {
-  user: User;
+interface UpdateUserUseCaseResponse {
+  status: number;
+  message: string;
 }
 
 @Injectable()
-export class CreateUserUseCase {
-  constructor(private createUserRepository: UserRepository) {}
+export class UpdateUserUseCase {
+  constructor(private updateUserRepository: UserRepository) {}
 
   public async execute(
-    request: CreateUserUseCaseRequest,
-  ): Promise<CreateUserUseCaseResponse> {
-    const { login, name, password } = request;
+    request: UpdateUserUseCaseRequest,
+  ): Promise<UpdateUserUseCaseResponse> {
+    const { login, name, id } = request;
 
-    if (!login || !name || !password)
-      throw new Error('Email, password or name is empyty');
+    // Exceptions
+    if (!login || !name || !id)
+      throw new HttpException('Login, nome e ID vazio', HttpStatus.BAD_REQUEST);
 
-    const user = new User({ name, password, login });
+    const user = await this.updateUserRepository.findById(id);
 
-    await this.createUserRepository.create(user);
+    if (!user)
+      throw new HttpException('Usuário inválido', HttpStatus.NOT_FOUND);
+
+    user.update({ login, name });
 
     return {
-      user,
+      status: HttpStatus.OK,
+      message: 'Usuário atualizado com sucesso',
     };
   }
 }

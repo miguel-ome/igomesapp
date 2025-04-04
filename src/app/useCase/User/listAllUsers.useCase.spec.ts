@@ -1,4 +1,4 @@
-import { User } from '@app/entities/user/user';
+import { User } from '@app/entities/User/User';
 import { ListAllUsersUseCase } from './listAllUsers.useCase';
 import { UserInMemoryRepository } from '@test/inMemory/userInMemory.repository';
 
