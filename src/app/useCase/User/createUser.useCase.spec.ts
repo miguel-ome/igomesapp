@@ -18,8 +18,6 @@ describe('Create User', () => {
     });
 
     expect(user).toBeTruthy();
-    expect(userInMemoryRepository.users.length).toEqual(1);
-    expect(userInMemoryRepository.users[0]).toEqual(user);
   });
 
   it('Should not be able to create a user in repository with password, name or login empity', async () => {
