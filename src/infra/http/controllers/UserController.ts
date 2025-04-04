@@ -24,7 +24,6 @@ export class UserController {
       status: 201,
       body: {
         message: 'Usuário criado com sucesso',
-        data: UserViewModel.toHttp(user),
       },
     };
   }
