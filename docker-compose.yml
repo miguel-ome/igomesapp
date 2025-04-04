@@ -1,16 +1,17 @@
 services:
-  postgre:
-    env_file: '.env'
-    container_name: shopping_cart
+  postgres:
+    container_name: igomesapp
     image: postgres:latest
+    env_file:
+      - .env
     environment:
-      - POSTGRES_USER=$POSTGRES_USER
-      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
-      - POSTGRES_DB=$POSTGRES_DB
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
     ports:
       - '5423:5432'
     volumes:
-      - polls_pg_data:/bitnami/postgresql
+      - polls_pg_data:/var/lib/postgresql/data
 
 volumes:
   polls_pg_data:

@@ -32,6 +32,8 @@ export class UpdateUserUseCase {
 
     user.update({ login, name });
 
+    await this.updateUserRepository.save(user);
+
     return {
       status: HttpStatus.OK,
       message: 'Usuário atualizado com sucesso',

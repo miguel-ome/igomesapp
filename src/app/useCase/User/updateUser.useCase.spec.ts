@@ -21,20 +21,18 @@ describe('Update user', () => {
   });
 
   it('Should be able update the user', async () => {
-    const infoUpdate = {
+    const { id, login, name } = {
       id: userToTest.id,
       name: 'Eliseu Miguel',
       login: 'miguel',
     };
 
-    await updateUserUseCase.execute(infoUpdate);
+    await updateUserUseCase.execute({ id, name, login });
 
-    await expect(
-      userInMemoryRepository.findById(infoUpdate.id),
-    ).resolves.toEqual(
+    await expect(userInMemoryRepository.findById(id)).resolves.toEqual(
       expect.objectContaining({
-        name: infoUpdate.name,
-        login: infoUpdate.login,
+        name,
+        login,
       }),
     );
   });

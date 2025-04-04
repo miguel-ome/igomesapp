@@ -8,16 +8,24 @@ export class UserInMemoryRepository implements UserRepository {
     await this.users.push(user);
   }
 
-  async listAllUsers(): Promise<User[]> {
-    return await this.users;
-  }
-
   async delete(id: string): Promise<void> {
     const userIndex = this.users.findIndex((user) => user.id === id);
 
     if (!userIndex) throw new Error('Usuário não encontrado');
 
     this.users.splice(userIndex, 1);
+  }
+
+  async save(user: User): Promise<void> {
+    const userIndex = this.users.findIndex(
+      (userInMemory) => userInMemory.id === user.id,
+    );
+
+    this.users[userIndex] = user;
+  }
+
+  async listAllUsers(): Promise<User[]> {
+    return await this.users;
   }
 
   async findById(id: string): Promise<User | null> {

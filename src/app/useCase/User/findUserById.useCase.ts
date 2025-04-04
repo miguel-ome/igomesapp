@@ -2,29 +2,29 @@ import { User } from '@app/entities/User/User';
 import { UserRepository } from '@app/repository/user/User.repository';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
-interface FindUserByLoginUseCaseRequest {
-  login: string;
+interface FindUserByIdUseCaseRequest {
+  id: string;
 }
 
-interface FindUserByLoginUseCaseResponse {
+interface FindUserByIdUseCaseResponse {
   status: number;
   message: string;
   user: User;
 }
 
 @Injectable()
-export class FindUserByLoginUseCase {
-  constructor(private findUserByLoginRepository: UserRepository) {}
+export class FindUserByIdUseCase {
+  constructor(private findUserByIdRepository: UserRepository) {}
 
   public async execute(
-    request: FindUserByLoginUseCaseRequest,
-  ): Promise<FindUserByLoginUseCaseResponse> {
-    const { login } = request;
+    request: FindUserByIdUseCaseRequest,
+  ): Promise<FindUserByIdUseCaseResponse> {
+    const { id } = request;
 
-    if (!login)
-      throw new HttpException('Login não informado', HttpStatus.BAD_REQUEST);
+    if (!id)
+      throw new HttpException('Id não informado', HttpStatus.BAD_REQUEST);
 
-    const user = await this.findUserByLoginRepository.findUserbyLogin(login);
+    const user = await this.findUserByIdRepository.findById(id);
 
     if (!user)
       throw new HttpException('Usuário não encontrado', HttpStatus.NOT_FOUND);
