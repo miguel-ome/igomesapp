@@ -13,7 +13,7 @@ describe('Create User', () => {
   it('Should be able to create a user in repository', async () => {
     const { user } = await createUserUseCase.execute({
       name: 'Eliseu Miguel Marinho de Oliveira',
-      email: 'libmigueldev@hotmail.com',
+      login: 'miguel',
       password: 'teste123',
     });
 
@@ -22,23 +22,23 @@ describe('Create User', () => {
     expect(userInMemoryRepository.users[0]).toEqual(user);
   });
 
-  it('Should not be able to create a user in repository with password, name or email empity', async () => {
+  it('Should not be able to create a user in repository with password, name or login empity', async () => {
     // Test with empity name
     expect(
       async () =>
         await createUserUseCase.execute({
           name: '',
-          email: 'libmigueldev@hotmail.com',
+          login: 'miguel',
           password: 'teste123',
         }),
     ).rejects.toThrow(Error);
 
-    // Test with empity email
+    // Test with empity login
     expect(
       async () =>
         await createUserUseCase.execute({
           name: 'Eliseu Miguel Marinho de Oliveira',
-          email: '',
+          login: '',
           password: 'teste123',
         }),
     ).rejects.toThrow(Error);
@@ -48,7 +48,7 @@ describe('Create User', () => {
       async () =>
         await createUserUseCase.execute({
           name: 'Eliseu Miguel Marinho de Oliveira',
-          email: 'libmigueldev@hotmail.com',
+          login: 'miguel',
           password: '',
         }),
     ).rejects.toThrow(Error);

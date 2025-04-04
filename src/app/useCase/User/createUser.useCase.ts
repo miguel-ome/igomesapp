@@ -1,10 +1,10 @@
-import { Email } from '@app/entities/email/email';
 import { User } from '@app/entities/user/user';
 import { UserRepository } from '@app/repository/user/User.repository';
+import { Injectable } from '@nestjs/common';
 
 interface CreateUserUseCaseRequest {
   name: string;
-  email: string;
+  login: string;
   password: string;
 }
 
@@ -12,18 +12,19 @@ interface CreateUserUseCaseResponse {
   user: User;
 }
 
+@Injectable()
 export class CreateUserUseCase {
   constructor(private createUserRepository: UserRepository) {}
 
   public async execute(
     request: CreateUserUseCaseRequest,
   ): Promise<CreateUserUseCaseResponse> {
-    const { email, name, password } = request;
+    const { login, name, password } = request;
 
-    if (!email || !name || !password)
+    if (!login || !name || !password)
       throw new Error('Email, password or name is empyty');
 
-    const user = new User({ email: new Email(email), name, password });
+    const user = new User({ name, password, login });
 
     await this.createUserRepository.create(user);
 

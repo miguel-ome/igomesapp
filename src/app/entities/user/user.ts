@@ -1,10 +1,9 @@
 import { Replace } from '@app/helpers/replace';
 import { randomUUID } from 'crypto';
-import { Email } from '../email/email';
 
 export interface UserSchema {
   name: string;
-  email: Email;
+  login: string;
   password: string;
   createdAt: Date;
   updatedAt?: Date | null;
@@ -22,6 +21,7 @@ export class User {
     this._id = id || randomUUID();
   }
 
+  // Getters
   public get id(): string {
     return this._id;
   }
@@ -30,24 +30,12 @@ export class User {
     return this.props.name;
   }
 
-  public set name(name: string) {
-    this.props.name = name;
-  }
-
-  public get email(): string {
-    return this.props.email.value;
-  }
-
-  public set email(email: string) {
-    this.props.email = new Email(email);
+  public get login(): string {
+    return this.props.login;
   }
 
   public get password(): string {
     return this.props.password;
-  }
-
-  public set password(password: string) {
-    this.props.password = password;
   }
 
   public get createdAt(): Date {
@@ -58,7 +46,18 @@ export class User {
     return this.props.createdAt;
   }
 
-  public update({ name, email, password }): void {
+  // Setters
+
+  public set name(name: string) {
+    this.props.name = name;
+  }
+
+  public set password(password: string) {
+    this.props.password = password;
+  }
+
+  // Methods
+  public update(): void {
     this.props.updatedAt = new Date();
   }
 }
