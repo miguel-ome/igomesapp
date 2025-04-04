@@ -1,5 +1,6 @@
 import { Replace } from '@app/helpers/replace';
 import { randomUUID } from 'crypto';
+import { Password } from '../Password/Password';
 
 export interface UserSchema {
   name: string;
@@ -17,6 +18,7 @@ export class User {
     this.props = {
       ...props,
       createdAt: props.createdAt || new Date(),
+      password: new Password(props.password).value,
     };
     this._id = id || randomUUID();
   }
@@ -53,7 +55,7 @@ export class User {
   }
 
   public set password(password: string) {
-    this.props.password = password;
+    this.props.password = new Password(password).value;
   }
 
   // Methods

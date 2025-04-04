@@ -8,11 +8,7 @@ export class UserInMemoryRepository implements UserRepository {
     await this.users.push(user);
   }
 
-  async findUserById(idUser: string): Promise<User | null> {
-    const user = this.users.find((user) => user.id === idUser);
-
-    if (!user) return null;
-
-    return user;
+  async listAllUsers(): Promise<User[]> {
+    return await this.users;
   }
 }
