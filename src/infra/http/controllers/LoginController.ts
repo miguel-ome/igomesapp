@@ -1,11 +1,27 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
+import { SignInDTO } from '../dto/Auth/signIn.DTO';
+import { AuthUseCase } from '@app/useCase/Auth/auth.useCase';
 
-@Controller()
+@Controller('auth')
 export class LoginController {
-  @Get('signIn')
-  public signIn() {
+  constructor(private authUseCase: AuthUseCase) {}
+
+  @Post('signIn')
+  public async signIn(@Body() request: SignInDTO) {
+    const { login, password } = request;
+
+    const { user } = await this.authUseCase.validateUser({ login, password });
+
+    const { access_token, message, status } = await this.authUseCase.login({
+      user,
+    });
+
     return {
-      message: 'Vamos fazer o login',
+      status,
+      message,
+      data: {
+        access_token,
+      },
     };
   }
 }

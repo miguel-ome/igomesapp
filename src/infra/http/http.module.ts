@@ -8,9 +8,22 @@ import { DeleteUserUseCase } from '@app/useCase/User/deleteUser.useCase';
 import { UpdateUserUseCase } from '@app/useCase/User/updateUser.useCase';
 import { FindUserByIdUseCase } from '@app/useCase/User/findUserById.useCase';
 import { LoginController } from './controllers/LoginController';
+import { JwtModule } from '@nestjs/jwt';
+import { AuthUseCase } from '@app/useCase/Auth/auth.useCase';
+import { JwtStrategy } from '@app/useCase/Auth/jwtStrategy.useCase';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [
+    DatabaseModule,
+    PassportModule.register({ defaultStrategy: 'jwt' }),
+    JwtModule.register({
+      secret: process.env.JWT_SECRET as string,
+      signOptions: {
+        expiresIn: '1d',
+      },
+    }),
+  ],
   controllers: [UserController, LoginController],
   providers: [
     CreateUserUseCase,
@@ -19,6 +32,8 @@ import { LoginController } from './controllers/LoginController';
     FindUserByIdUseCase,
     ListAllUsersUseCase,
     UpdateUserUseCase,
+    AuthUseCase,
+    JwtStrategy,
   ],
 })
 export class HttpModule {}

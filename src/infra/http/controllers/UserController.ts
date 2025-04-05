@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateUserDTO } from '../dto/user/CreateUserDTO';
 import { CreateUserUseCase } from '@app/useCase/User/createUser.useCase';
@@ -16,7 +17,9 @@ import { FindUserByIdUseCase } from '@app/useCase/User/findUserById.useCase';
 import { FindUserByLoginUseCase } from '@app/useCase/User/findUserByLogin.useCase';
 import { UpdateUserUseCase } from '@app/useCase/User/updateUser.useCase';
 import { UpdateUserDTO } from '../dto/user/UpdateUserDTO';
+import { AuthGuard } from '@nestjs/passport';
 
+@UseGuards(AuthGuard('jwt'))
 @Controller('user')
 export class UserController {
   constructor(
