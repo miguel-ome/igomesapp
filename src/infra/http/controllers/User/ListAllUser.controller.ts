@@ -1,7 +1,9 @@
 import { ListAllUsersUseCase } from '@app/useCase/User/listAllUsers.useCase';
 import { UserViewModel } from '@infra/view-model/UserViewModels';
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
+@UseGuards(AuthGuard('jwt'))
 @Controller('user')
 export class ListAllUsersController {
   constructor(private listAllUsersUseCase: ListAllUsersUseCase) {}

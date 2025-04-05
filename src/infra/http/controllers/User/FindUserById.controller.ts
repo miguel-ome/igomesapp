@@ -1,7 +1,9 @@
 import { FindUserByIdUseCase } from '@app/useCase/User/findUserById.useCase';
 import { UserViewModel } from '@infra/view-model/UserViewModels';
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
+@UseGuards(AuthGuard('jwt'))
 @Controller('user')
 export class FindUserByIdController {
   constructor(private findUserByIdUseCase: FindUserByIdUseCase) {}

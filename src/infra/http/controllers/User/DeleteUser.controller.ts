@@ -1,6 +1,8 @@
 import { DeleteUserUseCase } from '@app/useCase/User/deleteUser.useCase';
-import { Controller, Delete, Param } from '@nestjs/common';
+import { Controller, Delete, Param, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
+@UseGuards(AuthGuard('jwt'))
 @Controller('user')
 export class DeleteUserController {
   constructor(private deleteUserUseCase: DeleteUserUseCase) {}

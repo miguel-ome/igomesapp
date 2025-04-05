@@ -3,17 +3,27 @@ import { SignInController } from './SignIn.Controller';
 import { ValidateUserAuthUseCase } from '@app/useCase/Auth/validateUserAuth.uesCase';
 import { SignInUseCase } from '@app/useCase/Auth/signIn.useCase';
 import { DatabaseModule } from '@infra/database/database.module';
-import { JWT } from '@infra/auth/JWT';
+import { JwtInfra } from '@infra/auth/JWT';
+import { JwtModule } from '@nestjs/jwt';
+import { JWTService } from '@app/auth/JWTService';
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [
+    DatabaseModule,
+    JwtModule.register({
+      secret: process.env.JWT_SECRET as string,
+      signOptions: {
+        expiresIn: '1d',
+      },
+    }),
+  ],
   controllers: [SignInController],
   providers: [
     ValidateUserAuthUseCase,
     SignInUseCase,
     {
-      provide: 'TokenService',
-      useClass: JWT,
+      provide: JWTService,
+      useClass: JwtInfra,
     },
   ],
 })

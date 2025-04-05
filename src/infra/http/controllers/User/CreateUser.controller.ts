@@ -1,7 +1,9 @@
 import { CreateUserUseCase } from '@app/useCase/User/createUser.useCase';
 import { CreateUserDTO } from '@infra/http/dto/user/CreateUserDTO';
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
+@UseGuards(AuthGuard('jwt'))
 @Controller('user')
 export class CreateUserController {
   constructor(private createUserUseCase: CreateUserUseCase) {}

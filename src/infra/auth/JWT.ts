@@ -1,9 +1,9 @@
+import { JWTService } from '@app/auth/JWTService';
 import { IPayload } from '@app/interfaces/IPayload';
-import { JWTService } from '@app/interfaces/JWTService';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 @Injectable()
-export class JWT implements JWTService {
+export class JwtInfra implements JWTService {
   constructor(private jwtService: JwtService) {}
 
   public genereteToken(payload: IPayload): string {

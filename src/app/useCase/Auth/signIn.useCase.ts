@@ -1,7 +1,7 @@
 import { User } from '@app/entities/User/User';
-import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { IPayload } from '../../interfaces/IPayload';
-import { JWTService } from '@app/interfaces/JWTService';
+import { JWTService } from '@app/auth/JWTService';
 
 interface SignInUseCaseRequest {
   user: User;
@@ -15,9 +15,7 @@ interface SignInUseCaseResponse {
 
 @Injectable()
 export class SignInUseCase {
-  constructor(
-    @Inject('TokenService') private readonly jwtService: JWTService,
-  ) {}
+  constructor(private readonly jwtService: JWTService) {}
 
   public execute({ user }: SignInUseCaseRequest): SignInUseCaseResponse {
     const payload: IPayload = { login: user.login, sub: user.id };

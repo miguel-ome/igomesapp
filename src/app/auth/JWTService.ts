@@ -1,4 +1,4 @@
-import { IPayload } from './IPayload';
+import { IPayload } from '@app/interfaces/IPayload';
 
 export abstract class JWTService {
   public abstract genereteToken(payload: IPayload): string;
