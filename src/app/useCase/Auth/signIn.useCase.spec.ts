@@ -8,7 +8,7 @@ describe('Sign in', () => {
 
   beforeEach(() => {});
 
-  it('Should be able sign and receipt access token', () => {
+  it('Should be able sign and receive access token', () => {
     jwtService = {
       genereteToken: jest.fn().mockReturnValue('mocked-token'),
       verifyToken: jest.fn(),
