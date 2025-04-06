@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { SignInController } from './SignIn.Controller';
-import { ValidateUserAuthUseCase } from '@app/useCase/Auth/validateUserAuth.uesCase';
+import { ValidateUserAuthUseCase } from '@app/useCase/Auth/validateUserAuth.useCase';
 import { SignInUseCase } from '@app/useCase/Auth/signIn.useCase';
 import { DatabaseModule } from '@infra/database/database.module';
 import { JwtInfra } from '@infra/auth/JWT';

@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { SignInDTO } from '@infra/http/dto/Auth/SignIn.DTO';
-import { ValidateUserAuthUseCase } from '@app/useCase/Auth/validateUserAuth.uesCase';
+import { ValidateUserAuthUseCase } from '@app/useCase/Auth/validateUserAuth.useCase';
 import { SignInUseCase } from '@app/useCase/Auth/signIn.useCase';
 
 @Controller('auth')
