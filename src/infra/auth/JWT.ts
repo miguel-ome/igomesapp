@@ -6,7 +6,7 @@ import { JwtService } from '@nestjs/jwt';
 export class JwtInfra implements JWTService {
   constructor(private jwtService: JwtService) {}
 
-  public genereteToken(payload: IPayload): string {
+  public generateToken(payload: IPayload): string {
     return this.jwtService.sign(payload);
   }
 
