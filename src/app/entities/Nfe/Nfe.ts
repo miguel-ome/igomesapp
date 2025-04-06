@@ -6,8 +6,8 @@ interface NfeSchema {
   series: number;
   urlDanfe?: string;
   chaveNfe: string;
-  emissionDate: string;
-  recipientCNPJ: number;
+  emissionDate: Date;
+  recipientCNPJ: string;
   recipientName: string;
   totValue: number;
   totICMS: number;
@@ -20,8 +20,8 @@ interface updateNfe {
   series: number;
   urlDanfe?: string;
   chaveNfe: string;
-  emissionDate: string;
-  recipientCNPJ: number;
+  emissionDate: Date;
+  recipientCNPJ: string;
   recipientName: string;
   totValue: number;
   totICMS: number;
@@ -31,7 +31,7 @@ export class Nfe {
   private _id: string;
   private props: NfeSchema;
 
-  cconstructor(props: Replace<NfeSchema, { createdAt?: Date }>, id?: string) {
+  constructor(props: Replace<NfeSchema, { createdAt?: Date }>, id?: string) {
     this.props = {
       ...props,
       createdAt: props.createdAt || new Date(),
@@ -42,39 +42,39 @@ export class Nfe {
   /////////////
   // Getters
   /////////////
-  get numberNf(): number {
+  public get numberNf(): number {
     return this.props.numberNf;
   }
 
-  get series(): number {
+  public get series(): number {
     return this.props.series;
   }
 
-  get urlDanfe(): string | null {
+  public get urlDanfe(): string | null {
     return this.props.urlDanfe ? this.props.urlDanfe : null;
   }
 
-  get chaveNfe(): string {
+  public get chaveNfe(): string {
     return this.props.chaveNfe;
   }
 
-  get emissionDate(): string {
+  public get emissionDate(): Date {
     return this.props.emissionDate;
   }
 
-  get recipientCNPJ(): number {
+  public get recipientCNPJ(): string {
     return this.props.recipientCNPJ;
   }
 
-  get recipientName(): string {
+  public get recipientName(): string {
     return this.props.recipientName;
   }
 
-  get totValue(): number {
+  public get totValue(): number {
     return this.props.totValue;
   }
 
-  get totICMS(): number {
+  public get totICMS(): number {
     return this.props.totICMS;
   }
 

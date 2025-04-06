@@ -1,7 +1,7 @@
 import { User } from '@app/entities/User/User';
 import { faker } from '@faker-js/faker/.';
 
-export function makeUsers(
+export function MakeUsers(
   qtdUsers: number,
   userToTest?: { name: string; login: string; password: string },
 ): User[] | undefined {
