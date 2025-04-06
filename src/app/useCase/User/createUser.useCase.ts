@@ -1,5 +1,5 @@
 import { User } from '@app/entities/User/User';
-import { UserRepository } from '@app/repository/user/User.repository';
+import { UserRepository } from '@app/repository/User.repository';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 interface CreateUserUseCaseRequest {

@@ -1,5 +1,5 @@
 import { User } from '@app/entities/User/User';
-import { UserRepository } from '@app/repository/user/User.repository';
+import { UserRepository } from '@app/repository/User.repository';
 
 export class UserInMemoryRepository implements UserRepository {
   private users: User[] = [];
