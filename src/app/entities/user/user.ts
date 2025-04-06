@@ -54,11 +54,6 @@ export class User {
   }
 
   // Setters
-
-  public set name(name: string) {
-    this.props.name = name;
-  }
-
   public set password(password: string) {
     this.props.password = new Password(password).value;
   }
