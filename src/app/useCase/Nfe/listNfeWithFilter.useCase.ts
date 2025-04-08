@@ -1,4 +1,5 @@
 import { Nfe } from '@app/entities/Nfe/Nfe';
+import { IdentifyFilters } from '@app/helpers/indentifyFilters';
 import { IFilterPropsListNfe } from '@app/interfaces/IFilterPropsListNfe';
 import { NfeRepository } from '@app/repository/NfeRepository';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
@@ -16,9 +17,9 @@ export class ListNfeWithFilterUseCase {
   constructor(private nfeRepository: NfeRepository) {}
 
   async execute(
-    request: ListNfeWithFilterUseCaseRequest,
+    propsFilterNfe: ListNfeWithFilterUseCaseRequest,
   ): Promise<ListNfeWithFilterUseCaseResponse> {
-    const listNfe = await this.nfeRepository.listNfeWithFilter(request);
+    const listNfe = await this.nfeRepository.listNfeWithFilter(propsFilterNfe);
 
     if (!listNfe)
       throw new HttpException(
