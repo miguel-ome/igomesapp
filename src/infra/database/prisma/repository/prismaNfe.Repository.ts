@@ -3,7 +3,9 @@ import { NfeRepository } from '@app/repository/NfeRepository';
 import { PrismaService } from '../prisma.service';
 import { PrismaMapperNfe } from '@infra/mapers/PrismaNfeMapper';
 import { IFilterPropsListNfe } from '@app/interfaces/IFilterPropsListNfe';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class PrismaNfeRepository implements NfeRepository {
   constructor(private readonly prisma: PrismaService) {}
 

@@ -1,4 +1,4 @@
-import { User } from '@prisma/client';
+import { User } from '@app/entities/User/User';
 
 export class UserViewModel {
   static toHttp(user: User) {
