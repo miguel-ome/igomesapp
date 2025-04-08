@@ -38,7 +38,9 @@ export class PrismaUserRepository implements UserRepository {
 
   async findUserbyLogin(login: string): Promise<User | null> {
     const rowUser = await this.prisma.user.findUnique({
-      where: { login },
+      where: {
+        login,
+      },
     });
 
     return rowUser ? PrismaUserMaper.toDomain(rowUser) : null;

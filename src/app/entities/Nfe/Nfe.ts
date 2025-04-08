@@ -42,6 +42,10 @@ export class Nfe {
   /////////////
   // Getters
   /////////////
+  public get id(): string {
+    return this._id;
+  }
+
   public get numberNf(): number {
     return this.props.numberNf;
   }
@@ -76,6 +80,14 @@ export class Nfe {
 
   public get totICMS(): number {
     return this.props.totICMS;
+  }
+
+  public get createdAt(): Date {
+    return this.props.createdAt;
+  }
+
+  public get updatedAt(): Date | null {
+    return this.props.updatedAt ? this.props.updatedAt : null;
   }
 
   /////////////

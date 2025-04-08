@@ -49,8 +49,8 @@ export class User {
     return this.props.createdAt;
   }
 
-  public get updatedAt(): Date {
-    return this.props.createdAt;
+  public get updatedAt(): Date | null {
+    return this.props.updatedAt ? this.props.updatedAt : null;
   }
 
   // Setters
