@@ -1,29 +1,29 @@
-export interface IFilterPropsListNfe {
-  numberNf?: {
+export class FilterNfeDTO {
+  numberNf: {
     operator: 'gte' | 'lte' | 'gt' | 'lt' | 'equals' | 'contains';
     value: number;
   };
-  series?: {
+  series: {
     operator: 'gte' | 'lte' | 'gt' | 'lt' | 'equals';
     value: number;
   };
-  emissionDate?: {
+  emissionDate: {
     operator: 'gte' | 'lte' | 'gt' | 'lt' | 'equals';
     value: Date;
   };
-  recipientCNPJ?: {
+  recipientCNPJ: {
     operator: 'equals' | 'contains';
     value: string;
   };
-  recipientName?: {
+  recipientName: {
     operator: 'equals' | 'contains';
     value: string;
   };
-  totValue?: {
+  totValue: {
     operator: 'gte' | 'lte' | 'gt' | 'lt' | 'equals';
     value: number;
   };
-  totICMS?: {
+  totICMS: {
     operator: 'gte' | 'lte' | 'gt' | 'lt' | 'equals';
     value: number;
   };

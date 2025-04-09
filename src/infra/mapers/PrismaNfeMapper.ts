@@ -1,5 +1,5 @@
 import { Nfe } from '@app/entities/Nfe/Nfe';
-import { Nfe as RowNfe } from '@prisma/client';
+import { Prisma, Nfe as RowNfe } from '@prisma/client';
 
 export class PrismaMapperNfe {
   static toPrisma(nfe: Nfe) {
@@ -12,8 +12,8 @@ export class PrismaMapperNfe {
       emissionDate: nfe.emissionDate,
       recipientCNPJ: nfe.recipientCNPJ,
       recipientName: nfe.recipientName,
-      totValue: nfe.totValue,
-      totICMS: nfe.totICMS,
+      totValue: new Prisma.Decimal(nfe.totValue),
+      totICMS: new Prisma.Decimal(nfe.totICMS),
       createdAt: nfe.createdAt,
       updatedAt: nfe.updatedAt,
     };

@@ -3,7 +3,11 @@ import { NfeRepository } from '@app/repository/NfeRepository';
 import { PrismaService } from '../prisma.service';
 import { PrismaMapperNfe } from '@infra/mapers/PrismaNfeMapper';
 import { IFilterPropsListNfe } from '@app/interfaces/IFilterPropsListNfe';
+import { Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
+import { PrismaMapperNfeFilters } from '@infra/mapers/PrismaFiltersNfeMapper';
 
+@Injectable()
 export class PrismaNfeRepository implements NfeRepository {
   constructor(private readonly prisma: PrismaService) {}
 
@@ -46,45 +50,11 @@ export class PrismaNfeRepository implements NfeRepository {
     return listNfe.map(PrismaMapperNfe.toDomain);
   }
 
-  async listNfeWithFilter(propsFilterNfe: IFilterPropsListNfe): Promise<Nfe[]> {
-    const where: any = {}; // vamos construir dinamicamente
-
-    for (const key in propsFilterNfe) {
-      const filter = propsFilterNfe[key as keyof IFilterPropsListNfe];
-
-      if (
-        !filter?.operator ||
-        filter.value === undefined ||
-        filter.value === null
-      )
-        continue;
-
-      switch (filter.operator) {
-        case 'equals':
-          where[key] = { equals: filter.value };
-          break;
-        case 'contains':
-          where[key] = { contains: filter.value, mode: 'insensitive' }; // para strings
-          break;
-        case 'gte':
-          where[key] = { gte: filter.value };
-          break;
-        case 'lte':
-          where[key] = { lte: filter.value };
-          break;
-        case 'gt':
-          where[key] = { gt: filter.value };
-          break;
-        case 'lt':
-          where[key] = { lt: filter.value };
-          break;
-        default:
-          break;
-      }
-    }
+  async listNfeWithFilter(filters: IFilterPropsListNfe): Promise<Nfe[]> {
+    const rowFilters = PrismaMapperNfeFilters.toPrisma(filters);
 
     const listNfeFiltered = await this.prisma.nfe.findMany({
-      where,
+      where: rowFilters,
     });
 
     return listNfeFiltered.map(PrismaMapperNfe.toDomain);
