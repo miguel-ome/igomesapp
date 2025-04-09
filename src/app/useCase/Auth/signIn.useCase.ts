@@ -19,7 +19,7 @@ export class SignInUseCase {
 
   public execute({ user }: SignInUseCaseRequest): SignInUseCaseResponse {
     const payload: IPayload = { login: user.login, sub: user.id };
-    const access_token = this.jwtService.genereteToken(payload);
+    const access_token = this.jwtService.generateToken(payload);
 
     if (!access_token)
       throw new HttpException(
