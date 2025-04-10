@@ -14,26 +14,7 @@ export class IdentifyFilters {
       )
         continue;
 
-      switch (filter.operator) {
-        case 'equals':
-          filters[key] = { equals: filter.value };
-          break;
-        case 'contains':
-          filters[key] = { contains: filter.value, mode: 'insensitive' };
-          break;
-        case 'gt':
-          filters[key] = { gt: filter.value };
-          break;
-        case 'lt':
-          filters[key] = { lt: filter.value };
-          break;
-        case 'gte':
-          filters[key] = { gte: filter.value };
-          break;
-        case 'lte':
-          filters[key] = { lte: filter.value };
-          break;
-      }
+      filters[key] = propsFilterNfe[key];
     }
 
     return filters;

@@ -19,7 +19,9 @@ export class ListNfeWithFilterUseCase {
   async execute(
     propsFilterNfe: ListNfeWithFilterUseCaseRequest,
   ): Promise<ListNfeWithFilterUseCaseResponse> {
-    const listNfe = await this.nfeRepository.listNfeWithFilter(propsFilterNfe);
+    const filtersValidate = IdentifyFilters.execute(propsFilterNfe);
+
+    const listNfe = await this.nfeRepository.listNfeWithFilter(filtersValidate);
 
     if (!listNfe)
       throw new HttpException(

@@ -1,6 +1,5 @@
-import { Nfe } from '@app/entities/Nfe/Nfe';
 import { IFilterPropsListNfe } from '@app/interfaces/IFilterPropsListNfe';
-import { Prisma, Nfe as RowNfe } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 
 export class PrismaMapperNfeFilters {
   static toPrisma(filters: IFilterPropsListNfe): Prisma.NfeWhereInput {

@@ -15,7 +15,7 @@ interface NfeSchema {
   updatedAt?: Date | null;
 }
 
-interface updateNfe {
+export interface updateNfe {
   numberNf: number;
   series: number;
   urlDanfe?: string;

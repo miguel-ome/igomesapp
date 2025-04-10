@@ -10,7 +10,7 @@ describe('Sign in', () => {
 
   it('Should be able sign and receive access token', () => {
     jwtService = {
-      genereteToken: jest.fn().mockReturnValue('mocked-token'),
+      generateToken: jest.fn().mockReturnValue('mocked-token'),
       verifyToken: jest.fn(),
     };
     signInUseCase = new SignInUseCase(jwtService);
