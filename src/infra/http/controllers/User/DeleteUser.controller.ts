@@ -11,7 +11,9 @@ export class DeleteUserController {
   async deleteUser(@Param() params: { id: string }) {
     const { id } = params;
 
-    const { message, status } = await this.deleteUserUseCase.execute({ id });
+    const { message, status } = await this.deleteUserUseCase.execute({
+      id,
+    });
 
     return {
       status,

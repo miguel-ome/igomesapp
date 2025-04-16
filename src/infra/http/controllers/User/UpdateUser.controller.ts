@@ -1,5 +1,5 @@
 import { UpdateUserUseCase } from '@app/useCase/User/updateUser.useCase';
-import { UpdateUserDTO } from '@infra/http/dto/user/UpdateUserDTO';
+import { UpdateUserDTO } from '@infra/http/dto/User/UpdateUserDTO';
 import { Body, Controller, Param, Patch, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 

@@ -1,4 +1,4 @@
-import { UserRepository } from '@app/repository/user/User.repository';
+import { UserRepository } from '@app/repository/User.repository';
 import { FindUserByIdUseCase } from './findUserById.useCase';
 import { UserInMemoryRepository } from '@test/inMemory/userInMemory.repository';
 import { User } from '@app/entities/User/User';
