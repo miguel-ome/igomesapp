@@ -1,8 +1,8 @@
-import { Nfe } from '@app/entities/Nfe/Nfe';
 import { NfeRepository } from '@app/repository/NfeRepository';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
-interface CreateNfeUseCaseRequest {
+interface UpdateNfeUseCaseRequest {
+  id: string;
   numberNf: number;
   series: number;
   urlDanfe?: string;
@@ -14,19 +14,20 @@ interface CreateNfeUseCaseRequest {
   totICMS: number;
 }
 
-interface CreateNfeUseCaseResponse {
+interface UpdateNfeUseCaseResponse {
   status: number;
   message: string;
 }
 
 @Injectable()
-export class CreateNfeUseCase {
+export class UpdateNfeUseCase {
   constructor(private nfeRepository: NfeRepository) {}
 
   async execute(
-    request: CreateNfeUseCaseRequest,
-  ): Promise<CreateNfeUseCaseResponse> {
+    request: UpdateNfeUseCaseRequest,
+  ): Promise<UpdateNfeUseCaseResponse> {
     const {
+      id,
       chaveNfe,
       emissionDate,
       numberNf,
@@ -38,22 +39,15 @@ export class CreateNfeUseCase {
       urlDanfe,
     } = request;
 
-    if (
-      !chaveNfe ||
-      !emissionDate ||
-      !numberNf ||
-      !recipientCNPJ ||
-      !recipientName ||
-      !series ||
-      !totICMS ||
-      !totValue
-    )
-      throw new HttpException(
-        'Alguns dos campos vieram vazios',
-        HttpStatus.BAD_REQUEST,
-      );
+    if (!id)
+      throw new HttpException('ID não informado', HttpStatus.BAD_REQUEST);
 
-    const nfe = new Nfe({
+    const nfe = await this.nfeRepository.findNfeById(id);
+
+    if (!nfe)
+      throw new HttpException('Nfe não encontrada', HttpStatus.BAD_REQUEST);
+
+    nfe.update({
       chaveNfe,
       emissionDate,
       numberNf,
@@ -64,12 +58,11 @@ export class CreateNfeUseCase {
       totValue,
       urlDanfe,
     });
-
     await this.nfeRepository.create(nfe);
 
     return {
       status: 201,
-      message: 'Nfe criada com sucesso',
+      message: 'Nfe atualizada com sucesso',
     };
   }
 }

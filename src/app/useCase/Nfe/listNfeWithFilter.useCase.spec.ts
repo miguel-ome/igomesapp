@@ -1,4 +1,4 @@
-import { MakeNfe } from '@test/factories/makeNfe';
+import { MakeNfe } from '@test/factories/MakeNfe';
 import { NfeRepositoryInMemory } from '@test/inMemory/nfeInMemory.repository';
 import { ListNfeWithFilterUseCase } from './listNfeWithFilter.useCase';
 

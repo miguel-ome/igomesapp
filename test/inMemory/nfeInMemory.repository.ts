@@ -11,7 +11,7 @@ export class NfeRepositoryInMemory implements NfeRepository {
 
   async delete(id: string): Promise<void> {
     const nfeIndex = this.listNfe.findIndex((nfe) => nfe.id === id);
-    if (!nfeIndex) throw new Error('Nfe não encontrada');
+    if (nfeIndex < 0) throw new Error('Nfe não encontrada');
     this.listNfe.splice(nfeIndex, 1);
   }
 
@@ -19,7 +19,7 @@ export class NfeRepositoryInMemory implements NfeRepository {
     const nfeIndex = this.listNfe.findIndex(
       (nfeSearch) => nfeSearch.id === nfe.id,
     );
-    if (!nfeIndex) throw new Error('Nfe não encontrada');
+    if (nfeIndex < 0) throw new Error('Nfe não encontrada');
     this.listNfe[nfeIndex] = nfe;
   }
 

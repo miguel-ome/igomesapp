@@ -1,4 +1,4 @@
-import { MakeNfe } from '@test/factories/makeNfe';
+import { MakeNfe } from '@test/factories/MakeNfe';
 import { Nfe } from './Nfe';
 
 describe('Nfe', () => {

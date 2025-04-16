@@ -1,8 +1,10 @@
 import { ListNfeWithFilterUseCase } from '@app/useCase/Nfe/listNfeWithFilter.useCase';
 import { FilterNfeDTO } from '@infra/http/dto/Nfe/FiltersNfe.DTO';
 import { NfeViewModel } from '@infra/view-model/NfeViewModel';
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
+@UseGuards(AuthGuard('jwt'))
 @Controller('nfe')
 export class ListNfeWithFilterController {
   constructor(private listNfeWithFilter: ListNfeWithFilterUseCase) {}

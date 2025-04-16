@@ -1,7 +1,9 @@
 import { ListAllNfeUseCase } from '@app/useCase/Nfe/listAllNfe.useCase';
 import { NfeViewModel } from '@infra/view-model/NfeViewModel';
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
+@UseGuards(AuthGuard('jwt'))
 @Controller('nfe')
 export class ListAllNfeController {
   constructor(private listAllNfeUseCase: ListAllNfeUseCase) {}

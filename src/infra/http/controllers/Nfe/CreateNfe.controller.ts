@@ -1,7 +1,9 @@
 import { CreateNfeUseCase } from '@app/useCase/Nfe/createNfe.useCase';
 import { CreateNfeDTO } from '@infra/http/dto/Nfe/CreateNfe.DTO';
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
+@UseGuards(AuthGuard('jwt'))
 @Controller('nfe')
 export class CreateNfeController {
   constructor(private createNfeUseCase: CreateNfeUseCase) {}

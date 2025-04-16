@@ -44,7 +44,7 @@ export class MakeNfe {
     });
   }
 
-  static CreateMultiNfe(qtdNfe: number, props?: Partial<MakeNfeSchema>) {
+  static CreateMultiNfe(qtdNfe: number, props?: Partial<MakeNfeSchema>): Nfe[] {
     const listNfe: Nfe[] = [];
 
     if (qtdNfe < 2) throw new Error('Quantidade de Nfe informada menor que 2');
@@ -99,5 +99,6 @@ export class MakeNfe {
         );
       }
     }
+    return listNfe;
   }
 }

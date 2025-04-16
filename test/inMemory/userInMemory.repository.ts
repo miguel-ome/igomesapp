@@ -11,7 +11,7 @@ export class UserInMemoryRepository implements UserRepository {
   async delete(id: string): Promise<void> {
     const userIndex = this.users.findIndex((user) => user.id === id);
 
-    if (!userIndex) throw new Error('Usuário não encontrado');
+    if (userIndex < 0) throw new Error('Usuário não encontrado');
 
     this.users.splice(userIndex, 1);
   }
