@@ -4,7 +4,7 @@ import { JwtStrategy } from '@infra/auth/jwtStrategy.useCase';
 import { UserModule } from './controllers/User/user.module';
 import { AuthModule } from './controllers/Auth/auth.module';
 import { NfeModule } from './controllers/Nfe/Nfe.module';
-import { PaymentMethodModule } from './controllers/PaymentMethod/PaymentMethod.module';
+import { PaymentMethodModule } from './controllers/PaymentMethod/paymentMethod.module';
 
 @Module({
   imports: [

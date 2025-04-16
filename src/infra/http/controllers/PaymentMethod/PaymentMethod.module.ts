@@ -1,4 +1,3 @@
-import { Module } from '@nestjs/common';
 import { CreatePaymentMethodUseCase } from '@app/useCase/PaymentMethod/createPaymentMethod';
 import { FindPaymentMethodUseCase } from '@app/useCase/PaymentMethod/findPaymentMethodById';
 import { ListAllPaymentMethodsUseCase } from '@app/useCase/PaymentMethod/listAllPaymentMethods';
@@ -10,6 +9,7 @@ import { UpdatePaymentMethodController } from './UpdatePaymentMethod.controller'
 import { DatabaseModule } from '@infra/database/database.module';
 import { DeletePaymentMethodController } from './DeletePaymentMethod.controller';
 import { DeletePaymentMethodUseCase } from '@app/useCase/PaymentMethod/deletePaymentMethod';
+import { Module } from '@nestjs/common';
 
 @Module({
   imports: [DatabaseModule],
@@ -22,10 +22,10 @@ import { DeletePaymentMethodUseCase } from '@app/useCase/PaymentMethod/deletePay
   ],
   providers: [
     CreatePaymentMethodUseCase,
-    DeletePaymentMethodUseCase,
     FindPaymentMethodUseCase,
     ListAllPaymentMethodsUseCase,
     UpdatePaymentMethodUseCase,
+    DeletePaymentMethodUseCase,
   ],
 })
 export class PaymentMethodModule {}

@@ -1,5 +1,5 @@
 import { PaymentMethodRepository } from '@app/repository/PaymentMethodRepository';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 
 interface DeletePaymentMethodUseCaseRequest {
   id: string;
@@ -12,19 +12,16 @@ interface DeletePaymentMethodUseCaseResponse {
 
 @Injectable()
 export class DeletePaymentMethodUseCase {
-  constructor(private deletePaymentMethodRepository: PaymentMethodRepository) {}
+  constructor(private paymentMethodRepository: PaymentMethodRepository) {}
 
   public async execute(
     request: DeletePaymentMethodUseCaseRequest,
   ): Promise<DeletePaymentMethodUseCaseResponse> {
-    console.log('Repo:', this.deletePaymentMethodRepository);
-
     const { id } = request;
 
     if (!id) throw new Error('The id is empty');
 
-    const paymentMethodExists =
-      await this.deletePaymentMethodRepository.findById(id);
+    const paymentMethodExists = await this.paymentMethodRepository.findById(id);
 
     if (!paymentMethodExists)
       throw new HttpException(
@@ -32,7 +29,7 @@ export class DeletePaymentMethodUseCase {
         HttpStatus.NOT_FOUND,
       );
 
-    await this.deletePaymentMethodRepository.delete(id);
+    await this.paymentMethodRepository.delete(id);
 
     return {
       status: HttpStatus.CREATED,

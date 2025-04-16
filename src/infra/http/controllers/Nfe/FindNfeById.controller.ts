@@ -8,7 +8,7 @@ export class FindNfeByIdController {
   constructor(private findNfeByIdUseCase: FindNfeByIdUseCase) {}
 
   @Get('/id_:id')
-  async deleteUser(@Param() params: { id: string }) {
+  async execute(@Param() params: { id: string }) {
     const { id } = params;
 
     const { message, status } = await this.findNfeByIdUseCase.execute({

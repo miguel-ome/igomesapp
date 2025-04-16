@@ -4,15 +4,12 @@ import { Body, Controller, Param, Patch, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
 @UseGuards(AuthGuard('jwt'))
-@Controller('user')
+@Controller('payment-method')
 export class UpdatePaymentMethodController {
   constructor(private updatePaymentMethodUseCase: UpdatePaymentMethodUseCase) {}
 
   @Patch('/id_:id')
-  async updateUser(
-    @Param() params: { id: string },
-    @Body() body: UpdateUserDTO,
-  ) {
+  async execute(@Param() params: { id: string }, @Body() body: UpdateUserDTO) {
     const { id } = params;
     const { name } = body;
 

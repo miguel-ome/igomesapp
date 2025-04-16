@@ -5,14 +5,14 @@ import { Controller, Get, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
 @UseGuards(AuthGuard('jwt'))
-@Controller('payment-methods')
+@Controller('payment-method')
 export class ListAllPaymentsMethodsController {
   constructor(
     private listAllPaymentMethodUseCase: ListAllPaymentMethodsUseCase,
   ) {}
 
   @Get()
-  async listAllUsers() {
+  async execute() {
     const { message, status, paymentMethods } =
       await this.listAllPaymentMethodUseCase.execute();
 

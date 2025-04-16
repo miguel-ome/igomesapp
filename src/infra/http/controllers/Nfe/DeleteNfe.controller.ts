@@ -8,7 +8,7 @@ export class DeleteNfeController {
   constructor(private deleteNfeUseCase: DeleteNfeUseCase) {}
 
   @Delete('/id_:id')
-  async deleteUser(@Param() params: { id: string }) {
+  async execute(@Param() params: { id: string }) {
     const { id } = params;
 
     const { message, status } = await this.deleteNfeUseCase.execute({

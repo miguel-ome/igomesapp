@@ -4,12 +4,12 @@ import { AuthGuard } from '@nestjs/passport';
 import { PaymentMethodViewModel } from '@infra/view-model/PaymentMethodModel';
 
 @UseGuards(AuthGuard('jwt'))
-@Controller('payment-methods')
+@Controller('payment-method')
 export class FindPaymentMethodsByIdController {
   constructor(private findPaymentMethodsUseCase: FindPaymentMethodUseCase) {}
 
   @Get('/id_:id')
-  async findUserById(@Param() params: { id: string }) {
+  async execute(@Param() params: { id: string }) {
     const { id } = params;
 
     const { paymentMethod, message, status } =
