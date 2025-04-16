@@ -23,7 +23,7 @@ export class CreateUserUseCase {
     const { login, name, password } = request;
 
     if (!login || !name || !password)
-      throw new Error('Email, password or name is empyty');
+      throw new Error('Email, password or name is empty');
 
     const user = new User({ name, password, login });
 

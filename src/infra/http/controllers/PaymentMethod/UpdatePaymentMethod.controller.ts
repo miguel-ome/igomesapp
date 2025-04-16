@@ -1,12 +1,12 @@
-import { UpdateUserUseCase } from '@app/useCase/User/updateUser.useCase';
+import { UpdatePaymentMethodUseCase } from '@app/useCase/PaymentMethod/updatePaymentMethod';
 import { UpdateUserDTO } from '@infra/http/dto/User/UpdateUserDTO';
 import { Body, Controller, Param, Patch, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('user')
-export class UpdateUserController {
-  constructor(private updateUserUseCase: UpdateUserUseCase) {}
+export class UpdatePaymentMethodController {
+  constructor(private updatePaymentMethodUseCase: UpdatePaymentMethodUseCase) {}
 
   @Patch('/id_:id')
   async updateUser(
@@ -14,11 +14,10 @@ export class UpdateUserController {
     @Body() body: UpdateUserDTO,
   ) {
     const { id } = params;
-    const { login, name } = body;
+    const { name } = body;
 
-    const { message, status } = await this.updateUserUseCase.execute({
+    const { message, status } = await this.updatePaymentMethodUseCase.execute({
       id,
-      login,
       name,
     });
 

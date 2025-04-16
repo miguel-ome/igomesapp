@@ -4,7 +4,6 @@ import { PrismaService } from '../prisma.service';
 import { PrismaMapperNfe } from '@infra/mapers/PrismaNfeMapper';
 import { IFilterPropsListNfe } from '@app/interfaces/IFilterPropsListNfe';
 import { Injectable } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
 import { PrismaMapperNfeFilters } from '@infra/mapers/PrismaFiltersNfeMapper';
 
 @Injectable()
