@@ -3,6 +3,7 @@ import { Nfe } from '@app/entities/Nfe/Nfe';
 export class NfeViewModel {
   static toHttp(nfe: Nfe) {
     return {
+      id: nfe.id,
       numberNf: nfe.numberNf,
       series: nfe.series,
       urlDanfe: nfe.urlDanfe,
