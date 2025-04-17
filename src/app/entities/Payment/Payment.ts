@@ -3,7 +3,7 @@ import { randomUUID } from 'crypto';
 
 export interface PaymentSchema {
   idPaymentMethod: string;
-  idNf: string;
+  idNf?: string | null;
   dueDate: Date;
   emissionDate: Date;
   receivedDate?: Date | null;
@@ -47,8 +47,8 @@ export class Payment {
     return this.props.idPaymentMethod;
   }
 
-  public get idNf(): string {
-    return this.props.idNf;
+  public get idNf(): string | null {
+    return this.props.idNf ? this.props.idNf : null;
   }
 
   public get dueDate(): Date {
