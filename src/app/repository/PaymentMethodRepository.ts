@@ -1,4 +1,4 @@
-import { PaymentMethod } from '@app/entities/Payment/Payment';
+import { PaymentMethod } from '@app/entities/PaymentMethod/PaymentMethod';
 
 export abstract class PaymentMethodRepository {
   abstract create(paymentMethod: PaymentMethod): Promise<void>;

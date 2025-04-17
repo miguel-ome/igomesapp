@@ -1,6 +1,6 @@
 import { PaymentMethodInMemoryRepository } from '@test/inMemory/PaymentMethodInMemory.repository';
 import { DeletePaymentMethodUseCase } from './deletePaymentMethod';
-import { PaymentMethod } from '@app/entities/Payment/Payment';
+import { PaymentMethod } from '@app/entities/PaymentMethod/PaymentMethod';
 
 describe('Delete Payment Method', () => {
   let deletePaymentMethodUseCase: DeletePaymentMethodUseCase;

@@ -1,7 +1,7 @@
 import {
   PaymentMethod,
   PaymentMethodSchema,
-} from '@app/entities/Payment/Payment';
+} from '@app/entities/PaymentMethod/PaymentMethod';
 
 export class MakePaymentMethod {
   static create(override: Partial<PaymentMethodSchema>): PaymentMethod {
