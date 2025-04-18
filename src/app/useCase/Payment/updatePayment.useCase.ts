@@ -1,7 +1,7 @@
 import { NfeRepository } from '@app/repository/NfeRepository';
 import { PaymentMethodRepository } from '@app/repository/PaymentMethodRepository';
 import { PaymentRepository } from '@app/repository/PaymentRepository';
-import { HttpException, HttpStatus } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 interface UpdatePaymentUseCaseRequest {
   id: string;
@@ -18,6 +18,7 @@ interface UpdatePaymentUseCaseResponse {
   message: string;
 }
 
+@Injectable()
 export class UpdatePaymentUseCase {
   constructor(
     private paymentRepository: PaymentRepository,

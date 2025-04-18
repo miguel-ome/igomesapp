@@ -5,6 +5,7 @@ import { UserModule } from './controllers/User/user.module';
 import { AuthModule } from './controllers/Auth/auth.module';
 import { NfeModule } from './controllers/Nfe/Nfe.module';
 import { PaymentMethodModule } from './controllers/PaymentMethod/paymentMethod.module';
+import { PaymentModule } from './controllers/Payment/Payment.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { PaymentMethodModule } from './controllers/PaymentMethod/paymentMethod.m
     AuthModule,
     NfeModule,
     PaymentMethodModule,
+    PaymentModule,
   ],
   providers: [JwtStrategy],
 })

@@ -1,5 +1,5 @@
 import { PaymentRepository } from '@app/repository/PaymentRepository';
-import { HttpException, HttpStatus } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 interface DeletePaymenteUseCaseRequest {
   id: string;
@@ -10,6 +10,7 @@ interface DeletePaymenteUseCaseResponse {
   message: string;
 }
 
+@Injectable()
 export class DeletePaymentUseCase {
   constructor(private paymentRepository: PaymentRepository) {}
 

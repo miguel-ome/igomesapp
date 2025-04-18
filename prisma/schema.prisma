@@ -29,11 +29,27 @@ model Nfe {
   totICMS       Decimal
   createdAt     DateTime  @default(now())
   updatedAt     DateTime? @updatedAt
+  Payment       Payment[]
 }
 
 model PaymentMethod {
   id        String    @id @default(uuid())
   name      String    @unique
+  payments  Payment[]
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
+}
+
+model Payment {
+  id              String        @id @default(uuid())
+  idPaymentMethod String
+  PaymentMethod   PaymentMethod @relation(fields: [idPaymentMethod], references: [id])
+  idNf            String?
+  Nfe             Nfe?          @relation(fields: [idNf], references: [id])
+  dueDate         DateTime
+  emissionDate    DateTime
+  receivedDate    DateTime?
+  value           Decimal
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime?     @updatedAt
 }

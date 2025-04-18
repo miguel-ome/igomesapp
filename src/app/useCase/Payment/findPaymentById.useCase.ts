@@ -1,5 +1,6 @@
 import { Payment } from '@app/entities/Payment/Payment';
-import { HttpException, HttpStatus } from '@nestjs/common';
+import { PaymentRepository } from '@app/repository/PaymentRepository';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 interface FindPaymentByIdUseCaseRequest {
   id: string;
@@ -11,8 +12,9 @@ interface FindPaymentByIdUseCaseResponse {
   payment: Payment;
 }
 
+@Injectable()
 export class FindPaymentByIdUseCase {
-  constructor(private readonly paymentRepository: any) {}
+  constructor(private readonly paymentRepository: PaymentRepository) {}
 
   async execute(
     request: FindPaymentByIdUseCaseRequest,

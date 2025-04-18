@@ -6,6 +6,8 @@ import { NfeRepository } from '@app/repository/NfeRepository';
 import { PrismaNfeRepository } from './prisma/repository/prismaNfe.Repository';
 import { PrismaPaymentMethodRepository } from './prisma/repository/prismaPaymentMethod.Repository';
 import { PaymentMethodRepository } from '@app/repository/PaymentMethodRepository';
+import { PaymentRepository } from '@app/repository/PaymentRepository';
+import { PrismaPaymentRepository } from './prisma/repository/prismaPayment.Repository';
 
 @Module({
   providers: [
@@ -22,7 +24,16 @@ import { PaymentMethodRepository } from '@app/repository/PaymentMethodRepository
       provide: PaymentMethodRepository,
       useClass: PrismaPaymentMethodRepository,
     },
+    {
+      provide: PaymentRepository,
+      useClass: PrismaPaymentRepository,
+    },
   ],
-  exports: [UserRepository, NfeRepository, PaymentMethodRepository],
+  exports: [
+    UserRepository,
+    NfeRepository,
+    PaymentMethodRepository,
+    PaymentRepository,
+  ],
 })
 export class DatabaseModule {}

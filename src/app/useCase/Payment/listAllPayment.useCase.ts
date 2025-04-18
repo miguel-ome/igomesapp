@@ -1,5 +1,6 @@
 import { Payment } from '@app/entities/Payment/Payment';
 import { PaymentRepository } from '@app/repository/PaymentRepository';
+import { Injectable } from '@nestjs/common';
 
 // interface ListAllPaymentUseCaseRequest {}
 
@@ -9,6 +10,7 @@ interface ListAllPaymentUseCaseResponse {
   listPayment: Payment[];
 }
 
+@Injectable()
 export class ListAllPaymentUseCase {
   constructor(private paymentRepository: PaymentRepository) {}
 
