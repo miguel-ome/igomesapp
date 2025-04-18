@@ -1,6 +1,6 @@
 import { DeleteNfeUseCase } from './deleteNfe.useCase';
 import { HttpStatus } from '@nestjs/common';
-import { NfeRepositoryInMemory } from '@test/inMemory/nfeInMemory.repository';
+import { NfeRepositoryInMemory } from '@test/inMemory/NfeInMemory.repository';
 import { MakeNfe } from '@test/factories/MakeNfe';
 import { Nfe } from '@app/entities/Nfe/Nfe';
 

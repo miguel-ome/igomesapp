@@ -58,7 +58,7 @@ export class UpdateNfeUseCase {
       totValue,
       urlDanfe,
     });
-    await this.nfeRepository.create(nfe);
+    await this.nfeRepository.save(nfe);
 
     return {
       status: 201,

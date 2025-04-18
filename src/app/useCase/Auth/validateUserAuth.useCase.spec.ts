@@ -1,6 +1,6 @@
 import { User } from '@app/entities/User/User';
 import { ValidateUserAuthUseCase } from './validateUserAuth.useCase';
-import { UserInMemoryRepository } from '@test/inMemory/userInMemory.repository';
+import { UserInMemoryRepository } from '@test/inMemory/UserInMemory.repository';
 import { HttpException } from '@nestjs/common';
 
 describe('Validate user', () => {

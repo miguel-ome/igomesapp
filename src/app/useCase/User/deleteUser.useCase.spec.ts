@@ -1,4 +1,4 @@
-import { UserInMemoryRepository } from '@test/inMemory/userInMemory.repository';
+import { UserInMemoryRepository } from '@test/inMemory/UserInMemory.repository';
 import { DeleteUserUseCase } from './deleteUser.useCase';
 import { User } from '@app/entities/User/User';
 import { HttpException } from '@nestjs/common';

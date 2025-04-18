@@ -1,5 +1,5 @@
 import { User } from '@app/entities/User/User';
-import { UserInMemoryRepository } from '@test/inMemory/userInMemory.repository';
+import { UserInMemoryRepository } from '@test/inMemory/UserInMemory.repository';
 import { UpdateUserUseCase } from './updateUser.useCase';
 import { HttpException } from '@nestjs/common';
 

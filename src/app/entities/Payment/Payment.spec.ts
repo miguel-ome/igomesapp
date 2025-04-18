@@ -19,7 +19,7 @@ describe('Payment', () => {
       emissionDate: new Date('2023-10-01'),
       receivedDate: new Date('2023-10-02'),
       value: 100.0,
-    })
+    });
 
     expect(payment).toBeTruthy();
   });
@@ -34,6 +34,5 @@ describe('Payment', () => {
       value: 100.0,
     });
     expect(payment).toBeTruthy();
-  }
-
+  });
 });

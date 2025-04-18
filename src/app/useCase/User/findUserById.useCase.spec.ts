@@ -1,6 +1,6 @@
 import { UserRepository } from '@app/repository/User.repository';
 import { FindUserByIdUseCase } from './findUserById.useCase';
-import { UserInMemoryRepository } from '@test/inMemory/userInMemory.repository';
+import { UserInMemoryRepository } from '@test/inMemory/UserInMemory.repository';
 import { User } from '@app/entities/User/User';
 import { HttpException } from '@nestjs/common';
 

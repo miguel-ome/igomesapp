@@ -1,4 +1,4 @@
-import { PaymentMethod } from '@app/entities/Payment/Payment';
+import { PaymentMethod } from '@app/entities/PaymentMethod/PaymentMethod';
 import { PaymentMethodRepository } from '@app/repository/PaymentMethodRepository';
 import { PrismaPaymentMethodMapper } from '@infra/mapers/PrismaPaymentMethod';
 import { Injectable } from '@nestjs/common';

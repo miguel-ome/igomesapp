@@ -1,7 +1,7 @@
 import { Nfe } from '@app/entities/Nfe/Nfe';
 import { ListAllNfeUseCase } from './listAllNfe.useCase';
 import { MakeNfe } from '@test/factories/MakeNfe';
-import { NfeRepositoryInMemory } from '@test/inMemory/nfeInMemory.repository';
+import { NfeRepositoryInMemory } from '@test/inMemory/NfeInMemory.repository';
 
 describe('ListAllNfeUseCase', () => {
   let listAllNfeUseCase: ListAllNfeUseCase;

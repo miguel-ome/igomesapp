@@ -14,7 +14,7 @@ export interface PaymentSchema {
 
 export interface UpdatePayment {
   idPaymentMethod: string;
-  idNf: string;
+  idNf?: string;
   dueDate: Date;
   emissionDate: Date;
   receivedDate?: Date | null;
@@ -71,13 +71,17 @@ export class Payment {
     return this.props.updatedAt ? this.props.updatedAt : null;
   }
 
+  public get value(): number {
+    return this.props.value;
+  }
+
   /////////////
   // Methods
   /////////////
   public update({
     dueDate,
     emissionDate,
-    idNf,
+    idNf = '',
     idPaymentMethod,
     value,
     receivedDate,

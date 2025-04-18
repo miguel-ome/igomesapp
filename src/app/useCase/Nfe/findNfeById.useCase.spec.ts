@@ -2,7 +2,7 @@ import { FindNfeByIdUseCase } from './findNfeById.useCase';
 import { Nfe } from '@app/entities/Nfe/Nfe';
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { MakeNfe } from '@test/factories/MakeNfe';
-import { NfeRepositoryInMemory } from '@test/inMemory/nfeInMemory.repository';
+import { NfeRepositoryInMemory } from '@test/inMemory/NfeInMemory.repository';
 
 describe('FindNfeByIdUseCase', () => {
   let findNfeByIdUseCase: FindNfeByIdUseCase;

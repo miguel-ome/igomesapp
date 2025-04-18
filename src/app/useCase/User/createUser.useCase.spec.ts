@@ -1,5 +1,5 @@
 import { CreateUserUseCase } from './createUser.useCase';
-import { UserInMemoryRepository } from '@test/inMemory/userInMemory.repository';
+import { UserInMemoryRepository } from '@test/inMemory/UserInMemory.repository';
 
 describe('Create User', () => {
   let createUserUseCase: CreateUserUseCase;

@@ -1,6 +1,6 @@
 import { CreateNfeUseCase } from './createNfe.useCase';
 import { HttpException, HttpStatus } from '@nestjs/common';
-import { NfeRepositoryInMemory } from '@test/inMemory/nfeInMemory.repository';
+import { NfeRepositoryInMemory } from '@test/inMemory/NfeInMemory.repository';
 
 describe('CreateNfeUseCase', () => {
   let createNfeUseCase: CreateNfeUseCase;

@@ -1,5 +1,5 @@
 import { MakeNfe } from '@test/factories/MakeNfe';
-import { NfeRepositoryInMemory } from '@test/inMemory/nfeInMemory.repository';
+import { NfeRepositoryInMemory } from '@test/inMemory/NfeInMemory.repository';
 import { ListNfeWithFilterUseCase } from './listNfeWithFilter.useCase';
 
 describe('Nfe filtered', () => {

@@ -1,4 +1,4 @@
-import { NfeRepositoryInMemory } from '@test/inMemory/nfeInMemory.repository';
+import { NfeRepositoryInMemory } from '@test/inMemory/NfeInMemory.repository';
 import { UpdateNfeUseCase } from './updateNfe.useCase';
 import { MakeNfe } from '@test/factories/MakeNfe';
 import { Nfe } from '@app/entities/Nfe/Nfe';
