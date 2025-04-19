@@ -4,8 +4,14 @@ export class PaymentViewModel {
   static toHttp(payment: Payment) {
     return {
       id: payment.id,
-      idNf: payment.idNf,
-      idPaymentMethod: payment.idPaymentMethod,
+      nfe: {
+        idNf: payment.idNf,
+        numberNf: payment.numberNf,
+      },
+      paymentMethod: {
+        idPaymentMethod: payment.idPaymentMethod,
+        namePaymentMethod: payment.namePaymentMethod,
+      },
       dueDate: payment.dueDate,
       emissionDate: payment.emissionDate,
       receivedDate: payment.receivedDate,

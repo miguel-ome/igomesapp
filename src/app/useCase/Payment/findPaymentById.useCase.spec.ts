@@ -2,18 +2,32 @@ import { PaymentInMemoryRepository } from '@test/inMemory/PaymentInMemory.reposi
 import { FindPaymentByIdUseCase } from './findPaymentById.useCase';
 import { Payment } from '@app/entities/Payment/Payment';
 import { MakePayment } from '@test/factories/MakePayment';
+import { PaymentMethodInMemoryRepository } from '@test/inMemory/PaymentMethodInMemory.repository';
+import { PaymentMethod } from '@app/entities/PaymentMethod/PaymentMethod';
+import { MakePaymentMethod } from '@test/factories/MakePaymentMethod';
 
 describe('FindPaymentByIdUseCase', () => {
   let findPaymentByIdUseCase: FindPaymentByIdUseCase;
   let paymentRepository: PaymentInMemoryRepository;
+  let paymentMethodRepository: PaymentMethodInMemoryRepository;
 
+  let paymentMethod: PaymentMethod;
   let paymentToTest: Payment;
 
   beforeEach(() => {
     paymentRepository = new PaymentInMemoryRepository();
+    paymentMethodRepository = new PaymentMethodInMemoryRepository();
     findPaymentByIdUseCase = new FindPaymentByIdUseCase(paymentRepository);
 
-    paymentToTest = MakePayment.create();
+    // Contruindo o método de pagamento in memory e adicionando ao repositório
+    paymentMethod = MakePaymentMethod.create();
+    paymentMethodRepository.create(paymentMethod);
+
+    // Criando um pagamento
+    paymentToTest = MakePayment.create({
+      idPaymentMethod: paymentMethod.id,
+      namePaymentMethod: paymentMethod.name,
+    });
     paymentRepository.create(paymentToTest);
   });
 

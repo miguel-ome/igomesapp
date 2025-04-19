@@ -2,8 +2,14 @@ import { Replace } from '@app/helpers/replace';
 import { randomUUID } from 'crypto';
 
 export interface PaymentSchema {
-  idPaymentMethod: string;
-  idNf?: string | null;
+  paymentMethod: {
+    idPaymentMethod: string;
+    namePaymentMethod: string;
+  };
+  nf?: {
+    idNf: string | null;
+    numberNf: number | null;
+  } | null;
   dueDate: Date;
   emissionDate: Date;
   receivedDate?: Date | null;
@@ -13,8 +19,14 @@ export interface PaymentSchema {
 }
 
 export interface UpdatePayment {
-  idPaymentMethod: string;
-  idNf?: string;
+  paymentMethod: {
+    idPaymentMethod: string;
+    namePaymentMethod: string;
+  };
+  nf?: {
+    idNf: string | null;
+    numberNf: number | null;
+  };
   dueDate: Date;
   emissionDate: Date;
   receivedDate?: Date | null;
@@ -44,11 +56,19 @@ export class Payment {
   }
 
   public get idPaymentMethod(): string {
-    return this.props.idPaymentMethod;
+    return this.props.paymentMethod.idPaymentMethod;
+  }
+
+  public get namePaymentMethod(): string {
+    return this.props.paymentMethod.namePaymentMethod;
   }
 
   public get idNf(): string | null {
-    return this.props.idNf ? this.props.idNf : null;
+    return this.props.nf?.idNf ? this.props.nf.idNf : null;
+  }
+
+  public get numberNf(): number | null {
+    return this.props.nf?.numberNf ? this.props.nf.numberNf : null;
   }
 
   public get dueDate(): Date {
@@ -63,6 +83,10 @@ export class Payment {
     return this.props.receivedDate ? this.props.receivedDate : null;
   }
 
+  public get value(): number {
+    return this.props.value;
+  }
+
   public get createdAt(): Date {
     return this.props.createdAt;
   }
@@ -71,25 +95,33 @@ export class Payment {
     return this.props.updatedAt ? this.props.updatedAt : null;
   }
 
-  public get value(): number {
-    return this.props.value;
-  }
-
   /////////////
   // Methods
   /////////////
   public update({
     dueDate,
     emissionDate,
-    idNf = '',
-    idPaymentMethod,
+    nf,
+    paymentMethod: { idPaymentMethod, namePaymentMethod },
     value,
     receivedDate,
   }: UpdatePayment): void {
     this.props.dueDate = dueDate;
     this.props.emissionDate = emissionDate;
-    this.props.idNf = idNf;
-    this.props.idPaymentMethod = idPaymentMethod;
+
+    // Inicializa `nf` se ainda não existir
+    if (!this.props.nf) {
+      this.props.nf = { idNf: null, numberNf: null };
+    }
+
+    // Atualiza os valores de `nf` se fornecidos
+    if (nf) {
+      this.props.nf.idNf = nf.idNf ?? this.props.nf.idNf;
+      this.props.nf.numberNf = nf.numberNf ?? this.props.nf.numberNf;
+    }
+
+    this.props.paymentMethod.idPaymentMethod = idPaymentMethod;
+    this.props.paymentMethod.namePaymentMethod = namePaymentMethod;
     this.props.value = value;
     this.props.receivedDate = receivedDate;
     this.props.updatedAt = new Date();

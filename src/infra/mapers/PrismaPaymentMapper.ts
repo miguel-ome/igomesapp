@@ -1,5 +1,22 @@
 import { Payment } from '@app/entities/Payment/Payment';
-import { Payment as RowPayment } from '@prisma/client';
+import { Prisma } from '@prisma/client';
+
+type RowPayment = Prisma.PaymentGetPayload<{
+  include: {
+    Nfe: {
+      select: {
+        id: true;
+        numberNf: true;
+      };
+    };
+    PaymentMethod: {
+      select: {
+        id: true;
+        name: true;
+      };
+    };
+  };
+}>;
 
 export class PrismaPaymentMapper {
   static toPrisma(payment: Payment) {
@@ -19,8 +36,14 @@ export class PrismaPaymentMapper {
   static toDomain(rowPayment: RowPayment): Payment {
     return new Payment(
       {
-        idPaymentMethod: rowPayment.idPaymentMethod,
-        idNf: rowPayment.idNf,
+        paymentMethod: {
+          idPaymentMethod: rowPayment.idPaymentMethod,
+          namePaymentMethod: rowPayment.PaymentMethod.name,
+        },
+        nf: {
+          idNf: rowPayment.idNf,
+          numberNf: rowPayment.Nfe?.numberNf ?? null,
+        },
         dueDate: rowPayment.dueDate,
         emissionDate: rowPayment.emissionDate,
         receivedDate: rowPayment.receivedDate,

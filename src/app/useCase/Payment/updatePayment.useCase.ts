@@ -1,3 +1,4 @@
+import { Nfe } from '@app/entities/Nfe/Nfe';
 import { NfeRepository } from '@app/repository/NfeRepository';
 import { PaymentMethodRepository } from '@app/repository/PaymentMethodRepository';
 import { PaymentRepository } from '@app/repository/PaymentRepository';
@@ -9,7 +10,7 @@ interface UpdatePaymentUseCaseRequest {
   idNf?: string;
   dueDate: Date;
   emissionDate: Date;
-  receivedDate?: Date;
+  receivedDate?: Date | null;
   value: number;
 }
 
@@ -40,7 +41,7 @@ export class UpdatePaymentUseCase {
     } = request;
 
     // Validar se os campos obrigatórios estão preenchidos
-    if (!idPaymentMethod || !dueDate || !emissionDate || !value) {
+    if (!id || !idPaymentMethod || !dueDate || !emissionDate || !value) {
       throw new HttpException(
         'Preencha todos os campos obrigatórios',
         HttpStatus.BAD_REQUEST,
@@ -54,9 +55,11 @@ export class UpdatePaymentUseCase {
       throw new HttpException('Pagamento não encontrado', HttpStatus.NOT_FOUND);
 
     // Validar se o método de pagamento informado existe
-    if (!(await this.paymentMethodRepository.findById(idPaymentMethod)))
+    const paymentMethod =
+      await this.paymentMethodRepository.findById(idPaymentMethod);
+    if (!paymentMethod)
       throw new HttpException(
-        'Forma de pagamento inválida',
+        'Método de pagamento inválido',
         HttpStatus.BAD_REQUEST,
       );
 
@@ -76,18 +79,28 @@ export class UpdatePaymentUseCase {
       );
 
     // Validar se a nota fiscal existe, se o idNf for informado
-    if (idNf && !(await this.nfeRepository.findNfeById(idNf)))
-      throw new HttpException(
-        'Nota fiscal não encontrada',
-        HttpStatus.BAD_REQUEST,
-      );
+    let nf: Nfe | null = null;
+    if (idNf) {
+      nf = await this.nfeRepository.findNfeById(idNf);
+      if (!nf)
+        throw new HttpException(
+          'Nota fiscal não encontrada',
+          HttpStatus.BAD_REQUEST,
+        );
+    }
 
     // Atualizar o pagamento
     payment.update({
       dueDate,
       emissionDate,
-      idNf,
-      idPaymentMethod,
+      paymentMethod: {
+        idPaymentMethod: paymentMethod.id,
+        namePaymentMethod: paymentMethod.name,
+      },
+      nf: {
+        idNf: nf?.id ?? null,
+        numberNf: nf?.numberNf ?? null,
+      },
       value,
       receivedDate,
     });

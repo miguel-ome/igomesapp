@@ -2,18 +2,33 @@ import { PaymentInMemoryRepository } from '@test/inMemory/PaymentInMemory.reposi
 import { DeletePaymentUseCase } from './deletePaymente.useCase';
 import { Payment } from '@app/entities/Payment/Payment';
 import { MakePayment } from '@test/factories/MakePayment';
+import { PaymentMethod } from '@app/entities/PaymentMethod/PaymentMethod';
+import { MakePaymentMethod } from '@test/factories/MakePaymentMethod';
+import { PaymentMethodInMemoryRepository } from '@test/inMemory/PaymentMethodInMemory.repository';
 
 describe('DeletePaymentUseCase', () => {
   let deletePaymenteUseCase: DeletePaymentUseCase;
-  let paymentInMemoryRepository: PaymentInMemoryRepository;
+  let paymentRepository: PaymentInMemoryRepository;
+  let paymentMethodRepository: PaymentMethodInMemoryRepository;
+
+  let paymentMethod: PaymentMethod;
   let paymentToTest: Payment;
 
   beforeEach(() => {
-    paymentInMemoryRepository = new PaymentInMemoryRepository();
-    deletePaymenteUseCase = new DeletePaymentUseCase(paymentInMemoryRepository);
+    paymentRepository = new PaymentInMemoryRepository();
+    paymentMethodRepository = new PaymentMethodInMemoryRepository();
+    deletePaymenteUseCase = new DeletePaymentUseCase(paymentRepository);
 
-    paymentToTest = MakePayment.create();
-    paymentInMemoryRepository.create(paymentToTest);
+    // Contruindo o método de pagamento in memory e adicionando ao repositório
+    paymentMethod = MakePaymentMethod.create();
+    paymentMethodRepository.create(paymentMethod);
+
+    // Criando um pagamento
+    paymentToTest = MakePayment.create({
+      idPaymentMethod: paymentMethod.id,
+      namePaymentMethod: paymentMethod.name,
+    });
+    paymentRepository.create(paymentToTest);
   });
 
   // Teste para verificar se o pagamento foi deletado com sucesso
@@ -24,7 +39,7 @@ describe('DeletePaymentUseCase', () => {
 
     expect(message).toBe('Pagamento deletado com sucesso');
     expect(status).toBe(200);
-    expect(paymentInMemoryRepository.payments).toHaveLength(0);
+    expect(paymentRepository.payments).toHaveLength(0);
   });
 
   // Teste para verificar se o pagamento não foi encontrado

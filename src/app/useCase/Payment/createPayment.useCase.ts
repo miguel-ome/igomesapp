@@ -1,3 +1,4 @@
+import { Nfe } from '@app/entities/Nfe/Nfe';
 import { Payment } from '@app/entities/Payment/Payment';
 import { NfeRepository } from '@app/repository/NfeRepository';
 import { PaymentMethodRepository } from '@app/repository/PaymentMethodRepository';
@@ -9,7 +10,7 @@ interface CreatePaymenteUseCaseRequest {
   idNf?: string;
   dueDate: Date;
   emissionDate: Date;
-  receivedDate?: Date;
+  receivedDate?: Date | null;
   value: number;
 }
 
@@ -47,7 +48,9 @@ export class CreatePaymentUseCase {
     }
 
     // Validar se o método de pagamento informado existe
-    if (!(await this.paymentMethodRepository.findById(idPaymentMethod)))
+    const paymentMethod =
+      await this.paymentMethodRepository.findById(idPaymentMethod);
+    if (!paymentMethod)
       throw new HttpException(
         'Método de pagamento inválido',
         HttpStatus.BAD_REQUEST,
@@ -69,18 +72,28 @@ export class CreatePaymentUseCase {
       );
 
     // Validar se a nota fiscal existe, se o idNf for informado
-    if (idNf && !(await this.nfeRepository.findNfeById(idNf)))
-      throw new HttpException(
-        'Nota fiscal não encontrada',
-        HttpStatus.BAD_REQUEST,
-      );
+    let nf: Nfe | null = null;
+    if (idNf) {
+      nf = await this.nfeRepository.findNfeById(idNf);
+      if (!nf)
+        throw new HttpException(
+          'Nota fiscal não encontrada',
+          HttpStatus.BAD_REQUEST,
+        );
+    }
 
     const payment = new Payment({
       dueDate,
       emissionDate,
-      idPaymentMethod,
+      paymentMethod: {
+        idPaymentMethod: paymentMethod.id,
+        namePaymentMethod: paymentMethod.name,
+      },
+      nf: {
+        idNf: nf?.id ?? null,
+        numberNf: nf?.numberNf ?? null,
+      },
       value,
-      idNf,
       receivedDate,
     });
 

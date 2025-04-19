@@ -39,7 +39,10 @@ describe('UpdatePaymentUseCase', () => {
     nfeRepository.create(nfe);
 
     // Criando o pagamento in memory e adicionando ao repositório
-    paymentToTest = MakePayment.create();
+    paymentToTest = MakePayment.create({
+      idPaymentMethod: paymentMethod.id,
+      namePaymentMethod: paymentMethod.name,
+    });
     paymentRepository.create(paymentToTest);
   });
 
@@ -48,6 +51,7 @@ describe('UpdatePaymentUseCase', () => {
       updatePaymentUseCase.execute({
         id: paymentToTest.id,
         idPaymentMethod: '',
+        namePaymentMethod: paymentMethod.name,
         dueDate: new Date(),
         emissionDate: new Date(),
         value: 100,
@@ -60,6 +64,7 @@ describe('UpdatePaymentUseCase', () => {
       updatePaymentUseCase.execute({
         id: 'id-invalid',
         idPaymentMethod: paymentMethod.id,
+        namePaymentMethod: paymentMethod.name,
         dueDate: new Date(),
         emissionDate: new Date(),
         value: 100,
@@ -72,6 +77,7 @@ describe('UpdatePaymentUseCase', () => {
       updatePaymentUseCase.execute({
         id: paymentToTest.id,
         idPaymentMethod: 'invalidMethod',
+        namePaymentMethod: paymentMethod.id,
         dueDate: new Date(),
         emissionDate: new Date(),
         value: 100,
@@ -84,6 +90,7 @@ describe('UpdatePaymentUseCase', () => {
       updatePaymentUseCase.execute({
         id: paymentToTest.id,
         idPaymentMethod: paymentMethod.id,
+        namePaymentMethod: paymentMethod.name,
         dueDate: new Date('2023-01-01'),
         emissionDate: new Date('2023-01-02'),
         value: 100,
@@ -98,6 +105,7 @@ describe('UpdatePaymentUseCase', () => {
       updatePaymentUseCase.execute({
         id: paymentToTest.id,
         idPaymentMethod: paymentMethod.id,
+        namePaymentMethod: paymentMethod.name,
         dueDate: new Date(),
         emissionDate: new Date(),
         value: -100,
@@ -110,6 +118,7 @@ describe('UpdatePaymentUseCase', () => {
       updatePaymentUseCase.execute({
         id: paymentToTest.id,
         idPaymentMethod: paymentMethod.id,
+        namePaymentMethod: paymentMethod.name,
         dueDate: new Date(),
         emissionDate: new Date(),
         value: 100,
@@ -123,6 +132,7 @@ describe('UpdatePaymentUseCase', () => {
     const { message, status } = await updatePaymentUseCase.execute({
       id: paymentToTest.id,
       idPaymentMethod: paymentMethod.id,
+      namePaymentMethod: paymentMethod.name,
       dueDate: new Date('2023-02-02'),
       emissionDate: new Date('2023-01-02'),
       value: 200,

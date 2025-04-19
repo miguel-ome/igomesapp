@@ -38,6 +38,21 @@ describe('CreatePaymentUseCase', () => {
   it('Should be able to create a payment with success', async () => {
     const { message, status } = await createPaymentUseCase.execute({
       idPaymentMethod: paymentMethod.id,
+      namePaymentMethod: paymentMethod.name,
+      dueDate: new Date('2025-04-20'),
+      emissionDate: new Date('2025-04-10'),
+      value: 100,
+    });
+
+    expect(message).toBe('Pagamento criado com sucesso');
+    expect(status).toBe(201);
+    expect(paymentInMemoryRepository.payments).toHaveLength(1);
+  });
+
+  it('Should be able to create a payment with receiveDate success', async () => {
+    const { message, status } = await createPaymentUseCase.execute({
+      idPaymentMethod: paymentMethod.id,
+      namePaymentMethod: paymentMethod.name,
       dueDate: new Date('2025-04-20'),
       emissionDate: new Date('2025-04-10'),
       value: 100,
@@ -53,6 +68,7 @@ describe('CreatePaymentUseCase', () => {
     await expect(
       createPaymentUseCase.execute({
         idPaymentMethod: 'invalid-id',
+        namePaymentMethod: paymentMethod.name,
         dueDate: new Date('2025-04-20'),
         emissionDate: new Date('2025-04-10'),
         value: 100,
@@ -65,6 +81,7 @@ describe('CreatePaymentUseCase', () => {
     await expect(
       createPaymentUseCase.execute({
         idPaymentMethod: paymentMethod.id,
+        namePaymentMethod: paymentMethod.name,
         dueDate: new Date('2025-04-20'),
         emissionDate: new Date('2025-04-10'),
         value: -100,
@@ -77,6 +94,7 @@ describe('CreatePaymentUseCase', () => {
     await expect(
       createPaymentUseCase.execute({
         idPaymentMethod: paymentMethod.id,
+        namePaymentMethod: paymentMethod.name,
         dueDate: new Date('2024-04-05'),
         emissionDate: new Date('2025-04-10'),
         value: 100,
@@ -91,6 +109,7 @@ describe('CreatePaymentUseCase', () => {
     await expect(
       createPaymentUseCase.execute({
         idPaymentMethod: '',
+        namePaymentMethod: paymentMethod.name,
         dueDate: new Date('2025-04-05'),
         emissionDate: new Date('2025-04-10'),
         value: 100,
@@ -103,6 +122,7 @@ describe('CreatePaymentUseCase', () => {
     await expect(
       createPaymentUseCase.execute({
         idPaymentMethod: paymentMethod.id,
+        namePaymentMethod: paymentMethod.name,
         dueDate: new Date('2025-04-10'),
         emissionDate: new Date('2025-04-05'),
         value: 100,

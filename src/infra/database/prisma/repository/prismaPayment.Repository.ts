@@ -20,12 +20,41 @@ export class PrismaPaymentRepository implements PaymentRepository {
   async findById(id: string): Promise<Payment | null> {
     const rowPayment = await this.prisma.payment.findUnique({
       where: { id },
+      include: {
+        PaymentMethod: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        Nfe: {
+          select: {
+            id: true,
+            numberNf: true,
+          },
+        },
+      },
     });
     return rowPayment ? PrismaPaymentMapper.toDomain(rowPayment) : null;
   }
 
   async listAllPayments(): Promise<Payment[]> {
-    const rowPayments = await this.prisma.payment.findMany();
+    const rowPayments = await this.prisma.payment.findMany({
+      include: {
+        PaymentMethod: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        Nfe: {
+          select: {
+            id: true,
+            numberNf: true,
+          },
+        },
+      },
+    });
     return rowPayments.map((rowPayment) =>
       PrismaPaymentMapper.toDomain(rowPayment),
     );
